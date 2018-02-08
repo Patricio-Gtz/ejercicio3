@@ -8,18 +8,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-// Define el largo de la linea para imprimir en terminal
-#define LENGTH 180
 
 int main(int argc, char const *argv[]) {
 
   // Arreglo que guarda los datos de la foto
-  char imprime[LENGTH] = {0};
+  char imprime;
+  long int largo = 0;
+  int contador = 0;
   // Checa si hay muchos datos o pocos
   if(argc < 2) {
     printf("Muy pocos argumentos\n");
     return 0;
-  } else if (argc > 2) {
+  } else if (argc > 3) {
     printf("Muchos argumentos\n");
     return 0;
   }
@@ -31,9 +31,17 @@ int main(int argc, char const *argv[]) {
     printf("Error en el archivo\n");
     return 0;
   }
+  // Te vas al final del archivo
+  fseek(file, 0L, SEEK_END);
+  // Guardas cuantos char hay en el archivo
+  largo = ftell(file);
+  // Regresas al inicio del archivo
+  fseek(file, 0L, SEEK_SET);
   // Copia linea por linea al nuevo archivo
-  while (fgets(imprime, LENGTH, file)) {
-    fprintf(file2, "%s", imprime);
+  while (contador != largo) {
+    imprime = fgetc(file);
+    fprintf(file2, "%c", imprime);
+    contador++;
   }
   // Cierra archivo
   fclose(file);
