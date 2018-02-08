@@ -39,6 +39,7 @@ int main(int argc, char const *argv[]) {
   fseek(file, 0L, SEEK_SET);
   // Copia linea por linea al nuevo archivo
   while (contador != largo) {
+    // imprime linea por linea
     imprime = fgetc(file);
     fprintf(file2, "%c", imprime);
     contador++;
